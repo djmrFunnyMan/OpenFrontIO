@@ -363,6 +363,7 @@ class Client {
 
     // Attempt to join lobby
     this.handleHash();
+    this.handlePayment();
 
     const onHashUpdate = () => {
       // Reset the UI to its initial state
@@ -402,6 +403,18 @@ class Client {
         this.joinModal.open(lobbyId);
         console.log(`joining lobby ${lobbyId}`);
       }
+    }
+  }
+
+  private handlePayment() {
+    const params = new URLSearchParams(window.location.search);
+    const purchase = params.get("purchase");
+    if (purchase === "success") {
+      alert("purchase succeeded");
+      history.replaceState(null, "", window.location.pathname);
+    } else if (purchase === "cancel") {
+      alert("purchase failed");
+      history.replaceState(null, "", window.location.pathname);
     }
   }
 
